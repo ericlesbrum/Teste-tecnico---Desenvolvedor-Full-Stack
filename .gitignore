@@ -1,0 +1,78 @@
+############################################
+# 🔧 GERAL
+############################################
+.env
+.env.*
+*.log
+
+############################################
+# 🧠 SISTEMA / EDITOR
+############################################
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+############################################
+# 🔷 BACKEND (.NET / Visual Studio)
+############################################
+# Build
+bin/
+obj/
+out/
+
+# Rider / VS Code
+*.DotSettings.user
+
+# Testes
+TestResults/
+
+# EF / SQLite
+*.db
+*.db-shm
+*.db-wal
+
+# Publicação
+publish/
+*.publishsettings
+
+############################################
+# 🔶 FRONTEND (React + Tailwind + Node)
+############################################
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build frontend
+dist/
+build/
+
+# Vite
+.vite/
+
+# Next / CRA
+.next/
+.cache/
+
+############################################
+# 🧪 TESTES FRONT
+############################################
+coverage/
+
+############################################
+# 🔐 SEGURANÇA
+############################################
+*.pem
+*.key
+
+############################################
+# 📦 OUTROS
+############################################
+.DS_Store
+Thumbs.db
