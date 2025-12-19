@@ -1,28 +1,45 @@
-﻿using ControleGastos.Domain.Entities;
-using ControleGastos.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using ControleGastos.Application.DTOs;
+using ControleGastos.Application.Services.Interfaces;
+using ControleGastos.Domain.Entities;
+using ControleGastos.Infrastructure.Repositories.Interfaces;
 
 namespace ControleGastos.Application.Services;
 
-public class CategoriaService
+public class CategoriaService : ICategoriaService
 {
-    private readonly AppDbContext _context;
+    private readonly ICategoriaRepository _repository;
 
-    public CategoriaService(AppDbContext context)
+    public CategoriaService(ICategoriaRepository repository)
     {
-        _context = context;
+        _repository = repository;
     }
 
-    public async Task<Categoria> CriarAsync(Categoria categoria)
+    public async Task<CategoriaDto> CriarAsync(CategoriaDto categoriaDto)
     {
-        _context.Categorias.Add(categoria);
-        await _context.SaveChangesAsync();
-        return categoria;
+        var categoria = new Categoria
+        {
+            Descricao = categoriaDto.Descricao,
+            Finalidade = categoriaDto.Finalidade
+        };
+
+        var result = await _repository.CriarAsync(categoria);
+
+        return new CategoriaDto
+        {
+            Id = result.Id,
+            Descricao = result.Descricao,
+            Finalidade = result.Finalidade
+        };
     }
 
-    public async Task<List<Categoria>> ListarAsync()
+    public async Task<List<CategoriaDto>> ListarAsync()
     {
-        return await _context.Categorias.AsNoTracking().ToListAsync();
+        var categorias = await _repository.ListarAsync();
+        return categorias.Select(c => new CategoriaDto
+        {
+            Id = c.Id,
+            Descricao = c.Descricao,
+            Finalidade = c.Finalidade
+        }).ToList();
     }
 }
-

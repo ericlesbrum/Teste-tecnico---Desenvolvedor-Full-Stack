@@ -1,50 +1,85 @@
-﻿using ControleGastos.Domain.Enums;
-using ControleGastos.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using ControleGastos.Application.DTOs;
+using ControleGastos.Application.Services.Interfaces;
+using ControleGastos.Domain.Enums;
+using ControleGastos.Infrastructure.Repositories.Interfaces;
 
-namespace ControleGastos.Application.Services;
-
-public class RelatorioService
+namespace ControleGastos.Application.Services
 {
-    private readonly AppDbContext _context;
-
-    public RelatorioService(AppDbContext context)
+    public class RelatorioService : IRelatorioService
     {
-        _context = context;
-    }
+        private readonly IPessoaRepository _pessoaRepository;
+        private readonly ICategoriaRepository _categoriaRepository;
 
-    public async Task<object> TotaisPorPessoaAsync()
-    {
-        var pessoas = await _context.Pessoas
-            .Include(p => p.Transacoes)
-            .ToListAsync();
-
-        var resultado = pessoas.Select(p =>
+        public RelatorioService(IPessoaRepository pessoaRepository, ICategoriaRepository categoriaRepository)
         {
-            var receitas = p.Transacoes
-                .Where(t => t.Tipo == TipoTransacaoEnum.Receita)
-                .Sum(t => t.Valor);
+            _pessoaRepository = pessoaRepository;
+            _categoriaRepository = categoriaRepository;
+        }
 
-            var despesas = p.Transacoes
-                .Where(t => t.Tipo == TipoTransacaoEnum.Despesa)
-                .Sum(t => t.Valor);
+        public async Task<RelatorioGeralDto<RelatorioPessoaDto>> TotaisPorPessoaAsync()
+        {
+            var pessoas = await _pessoaRepository.ListarAsync();
 
-            return new
+            var lista = pessoas.Select(p =>
             {
-                p.Id,
-                p.Nome,
-                TotalReceitas = receitas,
-                TotalDespesas = despesas,
-                Saldo = receitas - despesas
-            };
-        }).ToList();
+                var totalReceitas = p.Transacoes
+                    .Where(t => t.Tipo == TipoTransacaoEnum.Receita)
+                    .Sum(t => t.Valor);
 
-        return new
+                var totalDespesas = p.Transacoes
+                    .Where(t => t.Tipo == TipoTransacaoEnum.Despesa)
+                    .Sum(t => t.Valor);
+
+                return new RelatorioPessoaDto
+                {
+                    PessoaId = p.Id,
+                    PessoaNome = p.Nome,
+                    TotalReceitas = totalReceitas,
+                    TotalDespesas = totalDespesas,
+                    Saldo = totalReceitas - totalDespesas
+                };
+            }).ToList();
+
+            return new RelatorioGeralDto<RelatorioPessoaDto>
+            {
+                Itens = lista,
+                TotalReceitas = lista.Sum(x => x.TotalReceitas),
+                TotalDespesas = lista.Sum(x => x.TotalDespesas),
+                Saldo = lista.Sum(x => x.Saldo)
+            };
+        }
+
+        public async Task<RelatorioGeralDto<RelatorioCategoriaDto>> TotaisPorCategoriaAsync()
         {
-            Pessoas = resultado,
-            TotalGeralReceitas = resultado.Sum(x => x.TotalReceitas),
-            TotalGeralDespesas = resultado.Sum(x => x.TotalDespesas),
-            SaldoGeral = resultado.Sum(x => x.Saldo)
-        };
+            var categorias = await _categoriaRepository.ListarAsync();
+
+            var lista = categorias.Select(c =>
+            {
+                var totalReceitas = c.Transacoes
+                    .Where(t => t.Tipo == TipoTransacaoEnum.Receita)
+                    .Sum(t => t.Valor);
+
+                var totalDespesas = c.Transacoes
+                    .Where(t => t.Tipo == TipoTransacaoEnum.Despesa)
+                    .Sum(t => t.Valor);
+
+                return new RelatorioCategoriaDto
+                {
+                    CategoriaId = c.Id,
+                    CategoriaDescricao = c.Descricao,
+                    TotalReceitas = totalReceitas,
+                    TotalDespesas = totalDespesas,
+                    Saldo = totalReceitas - totalDespesas
+                };
+            }).ToList();
+
+            return new RelatorioGeralDto<RelatorioCategoriaDto>
+            {
+                Itens = lista,
+                TotalReceitas = lista.Sum(x => x.TotalReceitas),
+                TotalDespesas = lista.Sum(x => x.TotalDespesas),
+                Saldo = lista.Sum(x => x.Saldo)
+            };
+        }
     }
 }

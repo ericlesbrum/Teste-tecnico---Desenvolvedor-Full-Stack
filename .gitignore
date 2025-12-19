@@ -1,78 +1,108 @@
-############################################
-# 🔧 GERAL
-############################################
-.env
-.env.*
-*.log
+####################################
+# SISTEMA OPERACIONAL
+####################################
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-############################################
-# 🧠 SISTEMA / EDITOR
-############################################
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Linux
+*~
+
+####################################
+# EDITORES / IDEs
+####################################
+# Visual Studio
 .vs/
-.vscode/
-.idea/
 *.user
 *.suo
 *.userosscache
 *.sln.docstates
 
-############################################
-# 🔷 BACKEND (.NET / Visual Studio)
-############################################
+# Visual Studio Code
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# JetBrains / Rider
+.idea/
+*.sln.iml
+
+####################################
+# BACKEND - .NET
+####################################
 # Build
-bin/
-obj/
-out/
+**/bin/
+**/obj/
+**/out/
 
-# Rider / VS Code
-*.DotSettings.user
+# Publish
+**/publish/
 
-# Testes
-TestResults/
+# Logs
+**/*.log
 
-# EF / SQLite
-*.db
-*.db-shm
-*.db-wal
+# Entity Framework
+**/Migrations/*.Designer.cs
+**/Migrations/*.resx
 
-# Publicação
-publish/
-*.publishsettings
+# Configurações sensíveis
+**/appsettings.*.json
+!**/appsettings.json
 
-############################################
-# 🔶 FRONTEND (React + Tailwind + Node)
-############################################
-# Node
-node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
+####################################
+# FRONTEND - REACT / VITE
+####################################
+# Dependências
+**/node_modules/
 
-# Build frontend
-dist/
-build/
+# Build
+**/dist/
+**/build/
 
-# Vite
-.vite/
+# Cache
+**/.vite/
+**/.eslintcache
+**/.npm/
+**/.pnpm-debug.log*
+**/.yarn-error.log*
+**/.yarn-integrity
 
-# Next / CRA
-.next/
-.cache/
+####################################
+# TYPESCRIPT
+####################################
+**/*.tsbuildinfo
 
-############################################
-# 🧪 TESTES FRONT
-############################################
-coverage/
+####################################
+# TESTES
+####################################
+**/TestResults/
+**/coverage/
+**/coverage.json
 
-############################################
-# 🔐 SEGURANÇA
-############################################
-*.pem
-*.key
+####################################
+# AMBIENTE / SEGURANÇA
+####################################
+# Variáveis de ambiente
+**/.env
+**/.env.*
+!**/.env.example
 
-############################################
-# 📦 OUTROS
-############################################
-.DS_Store
-Thumbs.db
+####################################
+# DOCKER (se usar futuramente)
+####################################
+docker-compose.override.yml
+
+####################################
+# OUTROS
+####################################
+*.tmp
+*.temp
+*.swp

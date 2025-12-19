@@ -5,20 +5,16 @@ namespace ControleGastos.Infrastructure.Data;
 
 public class AppDbContext : DbContext
 {
-    public DbSet<Pessoa> Pessoas => Set<Pessoa>();
-    public DbSet<Categoria> Categorias => Set<Categoria>();
-    public DbSet<Transacao> Transacoes => Set<Transacao>();
+    public DbSet<Pessoa> Pessoas { get; set; } = null!;
+    public DbSet<Categoria> Categorias { get; set; } = null!;
+    public DbSet<Transacao> Transacoes { get; set; } = null!;
 
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Pessoa>()
-            .HasMany(p => p.Transacoes)
-            .WithOne(t => t.Pessoa)
-            .HasForeignKey(t => t.PessoaId)
-            .OnDelete(DeleteBehavior.Cascade); // Apaga transações ao deletar pessoa
-
-        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<Pessoa>().HasKey(p => p.Id);
+        modelBuilder.Entity<Categoria>().HasKey(c => c.Id);
+        modelBuilder.Entity<Transacao>().HasKey(t => t.Id);
     }
 }
