@@ -9,7 +9,6 @@ export async function listarCategorias(): Promise<CategoriaDto[]> {
 }
 
 export async function criarCategoria(categoria: CategoriaCriarDto): Promise<void> {
-    // envia o valor numérico do enum
     await axios.post(API_URL, {
         descricao: categoria.descricao,
         finalidade: categoria.finalidade

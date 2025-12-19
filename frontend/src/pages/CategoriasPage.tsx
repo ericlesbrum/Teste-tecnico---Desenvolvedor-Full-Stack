@@ -21,7 +21,6 @@ export function CategoriasPage() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!descricao.trim()) return;
-
         try {
             await criarCategoria({ descricao: descricao.trim(), finalidade });
             setDescricao('');
@@ -33,16 +32,36 @@ export function CategoriasPage() {
         }
     };
 
+    const obterTextoFinalidade = (finalidade: string | number): string => {
+        const valor = String(finalidade);
+        switch (valor) {
+            case 'Despesa':
+            case '1':
+                return 'Despesa';
+            case 'Receita':
+            case '2':
+                return 'Receita';
+            case 'Ambas':
+            case '3':
+                return 'Ambas';
+            default:
+                return valor;
+        }
+    };
+
     const columns: Column<CategoriaDto>[] = [
         { key: 'id', title: 'ID' },
         { key: 'descricao', title: 'Descrição' },
-        { key: 'finalidade', title: 'Finalidade' },
+        {
+            key: 'finalidade',
+            title: 'Finalidade',
+            render: (value) => obterTextoFinalidade(value as string | number)
+        },
     ];
 
     return (
         <div>
             <h2>Categorias</h2>
-
             <Form onSubmit={handleSubmit}>
                 <input
                     value={descricao}
@@ -61,7 +80,6 @@ export function CategoriasPage() {
                 </select>
                 <button type="submit">Adicionar</button>
             </Form>
-
             <Table columns={columns} data={categorias} pageSize={5} />
         </div>
     );
