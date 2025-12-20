@@ -1,5 +1,5 @@
-import { Link } from 'react-router-dom';
 import { useDashboard } from '../hooks/useDashboard';
+import { DashboardTable } from '../components/DashboardTable/DashboardTable';
 
 export function DashboardPage() {
     const { relatorioPessoas, relatorioCategorias, loading, formatarMoeda } = useDashboard();
@@ -15,6 +15,22 @@ export function DashboardPage() {
             </div>
         );
     }
+
+    const pessoasItems = relatorioPessoas?.itens.map(item => ({
+        id: item.pessoaId,
+        nome: item.pessoaNome,
+        totalReceitas: item.totalReceitas,
+        totalDespesas: item.totalDespesas,
+        saldo: item.saldo,
+    })) || [];
+
+    const categoriasItems = relatorioCategorias?.itens.map(item => ({
+        id: item.categoriaId,
+        nome: item.categoriaDescricao,
+        totalReceitas: item.totalReceitas,
+        totalDespesas: item.totalDespesas,
+        saldo: item.saldo,
+    })) || [];
 
     return (
         <div className="container mt-4">
@@ -55,114 +71,20 @@ export function DashboardPage() {
             </div>
 
             {/* Resumo por Pessoa */}
-            <div className="row mb-4">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-header bg-pessoas text-white d-flex justify-content-between align-items-center">
-                            <h5 className="mb-0">Resumo por Pessoa</h5>
-                            <Link to="/relatorios/pessoas" className="btn btn-light btn-sm">
-                                Ver detalhes
-                            </Link>
-                        </div>
-                        <div className="card-body">
-                            {relatorioPessoas && relatorioPessoas.itens.length > 0 ? (
-                                <div className="table-responsive">
-                                    <table className="table table-sm table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Pessoa</th>
-                                                <th className="text-end">Receitas</th>
-                                                <th className="text-end">Despesas</th>
-                                                <th className="text-end">Saldo</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {relatorioPessoas.itens.slice(0, 5).map((item) => (
-                                                <tr key={item.pessoaId}>
-                                                    <td>{item.pessoaNome}</td>
-                                                    <td className="text-end text-success">
-                                                        {formatarMoeda(item.totalReceitas)}
-                                                    </td>
-                                                    <td className="text-end text-danger">
-                                                        {formatarMoeda(item.totalDespesas)}
-                                                    </td>
-                                                    <td className={`text-end fw-bold ${item.saldo >= 0 ? 'text-success' : 'text-danger'}`}>
-                                                        {formatarMoeda(item.saldo)}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    {relatorioPessoas.itens.length > 5 && (
-                                        <div className="text-center mt-2">
-                                            <small className="text-muted">
-                                                Mostrando 5 de {relatorioPessoas.itens.length} pessoas
-                                            </small>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-muted mb-0">Nenhum dado disponível</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DashboardTable
+                title="Resumo por Pessoa"
+                linkTo="/relatorios/pessoas"
+                headerClass="bg-pessoas"
+                items={pessoasItems}
+            />
 
             {/* Resumo por Categoria */}
-            <div className="row mb-4">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-header bg-categorias text-white d-flex justify-content-between align-items-center">
-                            <h5 className="mb-0">Resumo por Categoria</h5>
-                            <Link to="/relatorios/categorias" className="btn btn-light btn-sm">
-                                Ver detalhes
-                            </Link>
-                        </div>
-                        <div className="card-body">
-                            {relatorioCategorias && relatorioCategorias.itens.length > 0 ? (
-                                <div className="table-responsive">
-                                    <table className="table table-sm table-hover mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>Categoria</th>
-                                                <th className="text-end">Receitas</th>
-                                                <th className="text-end">Despesas</th>
-                                                <th className="text-end">Saldo</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {relatorioCategorias.itens.slice(0, 5).map((item) => (
-                                                <tr key={item.categoriaId}>
-                                                    <td>{item.categoriaDescricao}</td>
-                                                    <td className="text-end text-success">
-                                                        {formatarMoeda(item.totalReceitas)}
-                                                    </td>
-                                                    <td className="text-end text-danger">
-                                                        {formatarMoeda(item.totalDespesas)}
-                                                    </td>
-                                                    <td className={`text-end fw-bold ${item.saldo >= 0 ? 'text-success' : 'text-danger'}`}>
-                                                        {formatarMoeda(item.saldo)}
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                    {relatorioCategorias.itens.length > 5 && (
-                                        <div className="text-center mt-2">
-                                            <small className="text-muted">
-                                                Mostrando 5 de {relatorioCategorias.itens.length} categorias
-                                            </small>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <p className="text-muted mb-0">Nenhum dado disponível</p>
-                            )}
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DashboardTable
+                title="Resumo por Categoria"
+                linkTo="/relatorios/categorias"
+                headerClass="bg-categorias"
+                items={categoriasItems}
+            />
         </div>
     );
 }

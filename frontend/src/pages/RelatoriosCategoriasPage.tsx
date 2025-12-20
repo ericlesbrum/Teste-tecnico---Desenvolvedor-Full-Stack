@@ -1,3 +1,4 @@
+import { TabelaRelatorio } from '../components/TabelaRelatorio/TabelaRelatorio';
 import { useRelatorioCategorias } from '../hooks/useRelatorioCategorias';
 
 export function RelatoriosCategoriasPage() {
@@ -91,60 +92,22 @@ export function RelatoriosCategoriasPage() {
                         </div>
                     ) : (
                         <div className="table-responsive">
-                            <table className="table table-hover mb-0">
-                                <thead className="table-dark">
-                                    <tr>
-                                        <th className="py-3">Categoria</th>
-                                        <th className="text-end py-3">Receitas</th>
-                                        <th className="text-end py-3">Despesas</th>
-                                        <th className="text-end py-3">Saldo</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {relatorio.itens.map((item) => (
-                                        <tr key={item.categoriaId}>
-                                            <td className="py-3">
-                                                <i className="bi bi-tag-fill me-2"></i>
-                                                <strong>{item.categoriaDescricao}</strong>
-                                            </td>
-                                            <td className="text-end py-3">
-                                                <span className="text-success fw-semibold">
-                                                    {formatarMoeda(item.totalReceitas)}
-                                                </span>
-                                            </td>
-                                            <td className="text-end py-3">
-                                                <span className="text-danger fw-semibold">
-                                                    {formatarMoeda(item.totalDespesas)}
-                                                </span>
-                                            </td>
-                                            <td className="text-end py-3">
-                                                <span className={`badge ${item.saldo >= 0 ? 'bg-success' : 'bg-danger'} fs-6`}>
-                                                    {formatarMoeda(item.saldo)}
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                                <tfoot className="table-light">
-                                    <tr className="fw-bold">
-                                        <td className="py-3">
-                                            <i className="bi bi-calculator me-2"></i>
-                                            TOTAL GERAL
-                                        </td>
-                                        <td className="text-end py-3 text-success">
-                                            {formatarMoeda(relatorio.totalReceitas)}
-                                        </td>
-                                        <td className="text-end py-3 text-danger">
-                                            {formatarMoeda(relatorio.totalDespesas)}
-                                        </td>
-                                        <td className="text-end py-3">
-                                            <span className={`badge ${relatorio.saldo >= 0 ? 'bg-success' : 'bg-danger'} fs-6`}>
-                                                {formatarMoeda(relatorio.saldo)}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                            <TabelaRelatorio
+                                itens={relatorio.itens.map(item => ({
+                                    id: item.categoriaId,
+                                    label: item.categoriaDescricao,
+                                    totalReceitas: item.totalReceitas,
+                                    totalDespesas: item.totalDespesas,
+                                    saldo: item.saldo
+                                }))}
+                                totalReceitas={relatorio.totalReceitas}
+                                totalDespesas={relatorio.totalDespesas}
+                                saldo={relatorio.saldo}
+                                formatarMoeda={formatarMoeda}
+                                labelHeader="Categoria"
+                                icon="bi-tag-fill"
+                                emptyMessage="Nenhuma categoria com dados disponíveis"
+                            />
                         </div>
                     )}
                 </div>
