@@ -8,7 +8,6 @@ public class TransacaoDto
     public string Descricao { get; set; } = string.Empty;
     public decimal Valor { get; set; }
 
-    // Corrigido: usar enum
     public TipoTransacaoEnum Tipo { get; set; }
 
     public int PessoaId { get; set; }
