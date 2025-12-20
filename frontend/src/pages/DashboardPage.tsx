@@ -58,7 +58,7 @@ export function DashboardPage() {
             <div className="row mb-4">
                 <div className="col-12">
                     <div className="card">
-                        <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                        <div className="card-header bg-pessoas text-white d-flex justify-content-between align-items-center">
                             <h5 className="mb-0">Resumo por Pessoa</h5>
                             <Link to="/relatorios/pessoas" className="btn btn-light btn-sm">
                                 Ver detalhes
@@ -113,7 +113,7 @@ export function DashboardPage() {
             <div className="row mb-4">
                 <div className="col-12">
                     <div className="card">
-                        <div className="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                        <div className="card-header bg-categorias text-white d-flex justify-content-between align-items-center">
                             <h5 className="mb-0">Resumo por Categoria</h5>
                             <Link to="/relatorios/categorias" className="btn btn-light btn-sm">
                                 Ver detalhes

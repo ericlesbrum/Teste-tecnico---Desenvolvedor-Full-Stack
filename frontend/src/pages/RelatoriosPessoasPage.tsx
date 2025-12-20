@@ -35,7 +35,7 @@ export function RelatoriosPessoasPage() {
                     <p className="text-muted">Análise detalhada de receitas, despesas e saldo por pessoa</p>
                 </div>
                 <div className="col-auto">
-                    <button className="btn btn-primary" onClick={carregarRelatorio}>
+                    <button className="btn bg-pessoas" onClick={carregarRelatorio}>
                         <i className="bi bi-arrow-clockwise me-2"></i>
                         Atualizar
                     </button>

@@ -35,7 +35,7 @@ export function RelatoriosCategoriasPage() {
                     <p className="text-muted">Análise detalhada de receitas, despesas e saldo por categoria</p>
                 </div>
                 <div className="col-auto">
-                    <button className="btn btn-success" onClick={carregarRelatorio}>
+                    <button className="btn bg-categorias" onClick={carregarRelatorio}>
                         <i className="bi bi-arrow-clockwise me-2"></i>
                         Atualizar
                     </button>
