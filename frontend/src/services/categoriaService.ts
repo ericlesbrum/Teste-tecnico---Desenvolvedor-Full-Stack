@@ -1,16 +1,12 @@
-import axios from 'axios';
 import type { CategoriaCriarDto, CategoriaDto } from '../dtos/CategoriaDto';
+import * as api from './apiService';
 
-const API_URL = 'https://localhost:7133/api/categorias';
+const API_URL = import.meta.env.VITE_API_BASE_URL + '/categorias';
 
 export async function listarCategorias(): Promise<CategoriaDto[]> {
-    const response = await axios.get<CategoriaDto[]>(API_URL);
-    return response.data;
+    return api.get<CategoriaDto[]>(API_URL);
 }
 
 export async function criarCategoria(categoria: CategoriaCriarDto): Promise<void> {
-    await axios.post(API_URL, {
-        descricao: categoria.descricao,
-        finalidade: categoria.finalidade
-    });
+    return api.post(API_URL, categoria);
 }

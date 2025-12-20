@@ -1,17 +1,16 @@
-import axios from 'axios';
 import type { PessoaDto } from '../dtos/PessoaDto';
+import * as api from './apiService';
 
-const API_URL = 'https://localhost:7133/api/pessoas';
+const API_URL = import.meta.env.VITE_API_BASE_URL + '/pessoas';
 
 export async function listarPessoas(): Promise<PessoaDto[]> {
-    const response = await axios.get<PessoaDto[]>(API_URL);
-    return response.data;
+    return api.get<PessoaDto[]>(API_URL);
 }
 
 export async function criarPessoa(pessoa: Omit<PessoaDto, 'id'>): Promise<void> {
-    await axios.post(API_URL, pessoa);
+    return api.post(API_URL, pessoa);
 }
 
 export async function deletarPessoa(id: number): Promise<void> {
-    await axios.delete(`${API_URL}/${id}`);
+    return api.del(`${API_URL}/${id}`);
 }

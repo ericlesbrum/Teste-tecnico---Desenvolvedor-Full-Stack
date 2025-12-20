@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { Menu } from './components/Menu';
+import { Menu } from './components/Menu/Menu';
 import { Footer } from './components/Footer';
 import { DashboardPage } from './pages/DashboardPage';
 import { PessoasPage } from './pages/PessoasPage';
@@ -12,6 +12,7 @@ import { RelatoriosCategoriasPage } from './pages/RelatoriosCategoriasPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'react-toastify/dist/ReactToastify.css';
+import './style.css';
 
 export function App() {
   return (

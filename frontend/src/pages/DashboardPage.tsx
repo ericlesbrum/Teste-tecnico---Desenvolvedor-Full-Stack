@@ -1,41 +1,8 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { obterTotaisPorPessoa, obterTotaisPorCategoria } from '../services/relatorioService';
-import type { RelatorioGeralDto, RelatorioPessoaDto, RelatorioCategoriaDto } from '../dtos/RelatorioDto';
-import { toast } from 'react-toastify';
+import { useDashboard } from '../hooks/useDashboard';
 
 export function DashboardPage() {
-    const [relatorioPessoas, setRelatorioPessoas] = useState<RelatorioGeralDto<RelatorioPessoaDto> | null>(null);
-    const [relatorioCategorias, setRelatorioCategorias] = useState<RelatorioGeralDto<RelatorioCategoriaDto> | null>(null);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        carregarDados();
-    }, []);
-
-    async function carregarDados() {
-        try {
-            setLoading(true);
-            const [pessoas, categorias] = await Promise.all([
-                obterTotaisPorPessoa(),
-                obterTotaisPorCategoria()
-            ]);
-            setRelatorioPessoas(pessoas);
-            setRelatorioCategorias(categorias);
-        } catch (error) {
-            toast.error('Erro ao carregar dados do dashboard');
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }
-
-    function formatarMoeda(valor: number): string {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(valor);
-    }
+    const { relatorioPessoas, relatorioCategorias, loading, formatarMoeda } = useDashboard();
 
     if (loading) {
         return (

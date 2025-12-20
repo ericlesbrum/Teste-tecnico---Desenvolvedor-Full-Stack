@@ -1,0 +1,262 @@
+/* Importar Bootstrap Icons */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
+:root {
+  /* Gradientes */
+  --gradient-pessoas: linear-gradient(
+    135deg,
+    #198754 0%,
+    #27a86c 35%,
+    #36b97f 65%,
+    #10b981 100%
+  );
+  --gradient-categoria: linear-gradient(
+    135deg,
+    #0d6efd 0%,
+    #256eff 35%,
+    #3a7fff 65%,
+    #2b80ff 100%
+  );
+  --gradient-transacao: linear-gradient(
+    135deg,
+    #8b5cf6 0%,
+    #9a6cf8 30%,
+    #7c5df1 70%,
+    #6366f1 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Estilos Globais */
+body {
+  background-color: #f1f5f9;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", sans-serif;
+}
+
+.bg-pessoas {
+  background: var(--gradient-pessoas);
+  color: white;
+}
+
+.bg-categorias {
+  background: var(--gradient-categoria);
+  color: white;
+}
+
+.bg-transacoes {
+  background: var(--gradient-transacao);
+  color: white;
+}
+
+.btn-custom {
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Modificadores de cor */
+.btn-pessoas {
+  background: var(--gradient-pessoas);
+}
+
+.btn-categoria {
+  background: var(--gradient-categoria);
+}
+
+.btn-transacao {
+  background: var(--gradient-transacao);
+}
+
+/* Hover com brilho e elevação */
+.btn:hover {
+  color: white;
+  cursor: pointer;
+  filter: brightness(1.1);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Clique */
+.btn:active {
+  color: white;
+  transform: translateY(1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  filter: brightness(0.95);
+}
+
+/* Cards com sombra suave */
+.card {
+  /* background-color: var(--gray-150); */
+  border: none;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Headers dos cards */
+.card-header {
+  border-radius: 12px 12px 0 0 !important;
+  border: none;
+  padding: 1rem 1.5rem;
+}
+
+/* Tabelas */
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  border-bottom: 2px solid #dee2e6;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.table tbody tr {
+  transition: background-color 0.2s;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 123, 255, 0.05);
+  cursor: pointer;
+}
+
+/* Badges personalizados */
+.badge {
+  padding: 0.4em 0.8em;
+  font-weight: 600;
+  font-size: 0.85em;
+  border-radius: 20px;
+}
+
+/* Botões */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  transition: all 0.2s;
+  border: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Inputs e Selects */
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+  padding: 0.625rem 0.875rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
+}
+
+/* Labels */
+.form-label {
+  margin-bottom: 0.5rem;
+  color: #495057;
+  font-size: 0.95rem;
+}
+
+/* Spinners de loading */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Estados vazios */
+.text-center i.display-1 {
+  opacity: 0.3;
+}
+
+/* Paginação */
+.btn-group .btn-outline-secondary {
+  border-radius: 0;
+}
+
+.btn-group .btn-outline-secondary:first-child {
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-group .btn-outline-secondary:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+/* Footer */
+footer {
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Animações suaves */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card,
+.table-responsive {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .card-header h5 {
+    font-size: 1rem;
+  }
+
+  .btn-lg {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.95rem;
+  }
+
+  .table {
+    font-size: 0.9rem;
+  }
+}

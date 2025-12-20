@@ -1,16 +1,17 @@
 import { Link, useLocation } from 'react-router-dom';
+import type { MenuItem } from './Menu.types';
 
 export function Menu() {
     const location = useLocation();
 
-    const items = [
+    const items: MenuItem[] = [
         { path: '/', label: 'Dashboard' },
         { path: '/pessoas', label: 'Pessoas' },
         { path: '/categorias', label: 'Categorias' },
         { path: '/transacoes', label: 'Transações' },
     ];
 
-    const relatorioItems = [
+    const relatorioItems: MenuItem[] = [
         { path: '/relatorios/pessoas', label: 'Relatório por Pessoa' },
         { path: '/relatorios/categorias', label: 'Relatório por Categoria' },
     ];
@@ -19,7 +20,7 @@ export function Menu() {
     const isRelatorioActive = relatorioItems.some(item => item.path === location.pathname);
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav className="navbar navbar-expand-lg navbar-dark bg-dark menu-component">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">Controle de Gastos</Link>
 

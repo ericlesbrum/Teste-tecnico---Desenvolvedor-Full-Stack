@@ -1,14 +1,12 @@
-import axios from 'axios';
 import type { RelatorioPessoaDto, RelatorioCategoriaDto, RelatorioGeralDto } from '../dtos/RelatorioDto';
+import * as api from './apiService';
 
-const API_URL = 'https://localhost:7133/api/relatorios';
+const API_URL = import.meta.env.VITE_API_BASE_URL + '/relatorios';
 
 export async function obterTotaisPorPessoa(): Promise<RelatorioGeralDto<RelatorioPessoaDto>> {
-    const response = await axios.get<RelatorioGeralDto<RelatorioPessoaDto>>(`${API_URL}/pessoas`);
-    return response.data;
+    return api.get<RelatorioGeralDto<RelatorioPessoaDto>>(`${API_URL}/pessoas`);
 }
 
 export async function obterTotaisPorCategoria(): Promise<RelatorioGeralDto<RelatorioCategoriaDto>> {
-    const response = await axios.get<RelatorioGeralDto<RelatorioCategoriaDto>>(`${API_URL}/categorias`);
-    return response.data;
+    return api.get<RelatorioGeralDto<RelatorioCategoriaDto>>(`${API_URL}/categorias`);
 }
