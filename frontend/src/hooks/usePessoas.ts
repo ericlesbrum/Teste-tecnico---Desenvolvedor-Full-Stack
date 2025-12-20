@@ -1,10 +1,11 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { listarPessoas, criarPessoa, deletarPessoa } from '../services/pessoaService';
 import type { PessoaDto } from '../dtos/PessoaDto';
-import { toast } from 'react-toastify';
+import { useToasty } from './useToasty';
 import { useModal } from './useModal';
 
 export function usePessoas() {
+    const { success, error, warning } = useToasty();
     const [pessoas, setPessoas] = useState<PessoaDto[]>([]);
     const [nome, setNome] = useState('');
     const [idade, setIdade] = useState('');
@@ -16,8 +17,8 @@ export function usePessoas() {
             setLoading(true);
             const data = await listarPessoas();
             setPessoas(data);
-        } catch (error) {
-            toast.error('Erro ao carregar pessoas');
+        } catch {
+            error('Erro ao carregar pessoas');
         } finally {
             setLoading(false);
         }
@@ -30,22 +31,23 @@ export function usePessoas() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!nome.trim() || !idade) {
-            toast.warning('Preencha todos os campos');
+            warning('Preencha todos os campos');
             return;
         }
         if (Number(idade) < 0) {
-            toast.warning('Idade não pode ser negativa');
+            warning('Idade não pode ser negativa');
             return;
         }
+
         try {
             await criarPessoa({ nome: nome.trim(), idade: Number(idade) });
-            toast.success('Pessoa cadastrada com sucesso!');
+            success('Pessoa cadastrada com sucesso!');
             setNome('');
             setIdade('');
             carregar();
-        } catch (error: any) {
-            toast.error('Erro ao criar pessoa');
-            console.error('Erro ao criar pessoa:', error);
+        } catch (err) {
+            console.error(err);
+            error('Erro ao criar pessoa');
         }
     };
 
@@ -62,11 +64,10 @@ export function usePessoas() {
 
         try {
             await deletarPessoa(id);
-            toast.success('Pessoa excluída com sucesso!');
+            success('Pessoa excluída com sucesso!');
             carregar();
-        } catch (error) {
-            toast.error('Erro ao excluir pessoa');
-            console.error('Erro ao deletar pessoa:', error);
+        } catch {
+            error('Erro ao excluir pessoa');
         }
     };
 

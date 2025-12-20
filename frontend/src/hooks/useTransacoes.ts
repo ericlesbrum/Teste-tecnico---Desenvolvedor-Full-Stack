@@ -5,9 +5,10 @@ import { listarCategorias } from '../services/categoriaService';
 import type { TransacaoDto } from '../dtos/TransacaoDto';
 import type { PessoaDto } from '../dtos/PessoaDto';
 import type { CategoriaDto } from '../dtos/CategoriaDto';
-import { toast } from 'react-toastify';
+import { useToasty } from './useToasty';
 
 export function useTransacoes() {
+    const { success, error, warning } = useToasty();
     const [transacoes, setTransacoes] = useState<TransacaoDto[]>([]);
     const [pessoas, setPessoas] = useState<PessoaDto[]>([]);
     const [categorias, setCategorias] = useState<CategoriaDto[]>([]);
@@ -30,9 +31,9 @@ export function useTransacoes() {
             setTransacoes(transacoesData);
             setPessoas(pessoasData);
             setCategorias(categoriasData);
-        } catch (error) {
-            toast.error('Erro ao carregar dados');
-            console.error(error);
+        } catch (err) {
+            console.error(err);
+            error('Erro ao carregar dados');
         } finally {
             setLoading(false);
         }
@@ -45,13 +46,13 @@ export function useTransacoes() {
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Validação manual
         if (!descricao.trim() || !valor || !pessoaId || !categoriaId) {
-            toast.warning('Preencha todos os campos');
+            warning('Preencha todos os campos');
             return;
         }
+
         if (Number(valor) <= 0) {
-            toast.warning('Valor deve ser maior que zero');
+            warning('Valor deve ser maior que zero');
             return;
         }
 
@@ -65,26 +66,22 @@ export function useTransacoes() {
                 categoriaId: Number(categoriaId),
                 categoriaDescricao: ''
             });
-            toast.success('Transação registrada com sucesso!');
+            success('Transação registrada com sucesso!');
             setDescricao('');
             setValor('');
             setTipo(1);
             setPessoaId('');
             setCategoriaId('');
             carregar();
-        } catch (error: any) {
-            const mensagem = error.response?.data || 'Erro ao criar transação';
-            toast.error(mensagem);
-            console.error('Erro ao criar transação:', error);
+        } catch (err: any) {
+            console.error(err);
+            const mensagem = err.response?.data || 'Erro ao criar transação';
+            error(mensagem);
         }
     };
 
-    const formatarMoeda = (valor: number): string => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(valor);
-    };
+    const formatarMoeda = (valor: number) =>
+        new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
 
     return {
         transacoes,

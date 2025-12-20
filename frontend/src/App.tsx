@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
+import { Bounce, ToastContainer } from 'react-toastify';
 import { Menu } from './components/Menu/Menu';
 import { Footer } from './components/Footer';
 import { DashboardPage } from './pages/DashboardPage';
@@ -30,7 +30,19 @@ export function App() {
           </Routes>
         </main>
         <Footer />
-        <ToastContainer position="top-right" autoClose={3000} />
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+        />
       </div>
     </Router>
   );

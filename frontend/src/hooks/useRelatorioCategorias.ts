@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import { obterTotaisPorCategoria } from '../services/relatorioService';
 import type { RelatorioCategoriaDto, RelatorioGeralDto } from '../dtos/RelatorioDto';
-import { toast } from 'react-toastify';
+import { useToasty } from './useToasty';
 
 export function useRelatorioCategorias() {
+    const { error } = useToasty();
     const [relatorio, setRelatorio] = useState<RelatorioGeralDto<RelatorioCategoriaDto> | null>(null);
     const [loading, setLoading] = useState(true);
 
@@ -12,9 +13,9 @@ export function useRelatorioCategorias() {
             setLoading(true);
             const dados = await obterTotaisPorCategoria();
             setRelatorio(dados);
-        } catch (error) {
-            toast.error('Erro ao carregar relatório de categorias');
-            console.error(error);
+        } catch (err) {
+            console.error(err);
+            error('Erro ao carregar relatório de categorias');
         } finally {
             setLoading(false);
         }
@@ -24,17 +25,8 @@ export function useRelatorioCategorias() {
         carregarRelatorio();
     }, []);
 
-    const formatarMoeda = (valor: number): string => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(valor);
-    };
+    const formatarMoeda = (valor: number) =>
+        new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
 
-    return {
-        relatorio,
-        loading,
-        carregarRelatorio,
-        formatarMoeda
-    };
+    return { relatorio, loading, carregarRelatorio, formatarMoeda };
 }

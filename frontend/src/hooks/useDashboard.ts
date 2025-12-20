@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { obterTotaisPorPessoa, obterTotaisPorCategoria } from '../services/relatorioService';
 import type { RelatorioGeralDto, RelatorioPessoaDto, RelatorioCategoriaDto } from '../dtos/RelatorioDto';
-import { toast } from 'react-toastify';
+import { useToasty } from './useToasty';
 
 export function useDashboard() {
+    const { error } = useToasty();
     const [relatorioPessoas, setRelatorioPessoas] = useState<RelatorioGeralDto<RelatorioPessoaDto> | null>(null);
     const [relatorioCategorias, setRelatorioCategorias] = useState<RelatorioGeralDto<RelatorioCategoriaDto> | null>(null);
     const [loading, setLoading] = useState(true);
@@ -17,9 +18,9 @@ export function useDashboard() {
             ]);
             setRelatorioPessoas(pessoas);
             setRelatorioCategorias(categorias);
-        } catch (error) {
-            toast.error('Erro ao carregar dados do dashboard');
-            console.error(error);
+        } catch (err) {
+            console.error(err);
+            error('Erro ao carregar dados do dashboard');
         } finally {
             setLoading(false);
         }
@@ -29,12 +30,8 @@ export function useDashboard() {
         carregarDados();
     }, []);
 
-    const formatarMoeda = (valor: number): string => {
-        return new Intl.NumberFormat('pt-BR', {
-            style: 'currency',
-            currency: 'BRL'
-        }).format(valor);
-    };
+    const formatarMoeda = (valor: number) =>
+        new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
 
     return {
         relatorioPessoas,
