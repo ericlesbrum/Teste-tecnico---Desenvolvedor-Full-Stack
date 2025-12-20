@@ -1,6 +1,7 @@
 /* Importar Bootstrap Icons */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 
+/* ==================== VARIÁVEIS ==================== */
 :root {
   /* Gradientes */
   --gradient-pessoas: linear-gradient(
@@ -26,96 +27,122 @@
   );
 }
 
+/* ==================== RESET ==================== */
 * {
   box-sizing: border-box;
 }
 
-/* Estilos Globais */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* ==================== GLOBAIS ==================== */
 body {
   background-color: #f1f5f9;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", sans-serif;
 }
 
+.text-center i.display-1 {
+  opacity: 0.3;
+}
+
+/* ==================== GRADIENTES ==================== */
 .bg-pessoas {
   background: var(--gradient-pessoas);
-  color: white;
+  color: #fff;
 }
-
 .bg-categorias {
   background: var(--gradient-categoria);
-  color: white;
+  color: #fff;
 }
-
 .bg-transacoes {
   background: var(--gradient-transacao);
-  color: white;
+  color: #fff;
 }
 
-.btn-custom {
-  color: white;
+/* ==================== BOTÕES ==================== */
+.btn {
   border: none;
-  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
-  cursor: pointer;
+  padding: 0.5rem 1rem;
   font-weight: 600;
+  cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Modificadores de cor */
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+  transform: translateY(1px);
+  filter: brightness(0.95);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões com gradiente */
 .btn-pessoas {
   background: var(--gradient-pessoas);
 }
-
 .btn-categoria {
   background: var(--gradient-categoria);
 }
-
 .btn-transacao {
   background: var(--gradient-transacao);
 }
 
-/* Hover com brilho e elevação */
-.btn:hover {
+.btn-pessoas,
+.btn-categoria,
+.btn-transacao {
   color: white;
-  cursor: pointer;
-  filter: brightness(1.1);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* Clique */
-.btn:active {
+.btn-pessoas:hover,
+.btn-categoria:hover,
+.btn-transacao:hover {
   color: white;
-  transform: translateY(1px);
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  filter: brightness(0.95);
 }
 
-/* Cards com sombra suave */
+/* ==================== CARDS ==================== */
 .card {
-  /* background-color: var(--gray-150); */
   border: none;
   border-radius: 12px;
   transition: transform 0.2s, box-shadow 0.2s;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
-/* Headers dos cards */
 .card-header {
-  border-radius: 12px 12px 0 0 !important;
+  border-radius: 12px 12px 0 0;
   border: none;
   padding: 1rem 1.5rem;
 }
 
-/* Tabelas */
+/* ==================== TABELAS ==================== */
 .table {
   margin-bottom: 0;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease-out;
 }
 
 .table thead th {
@@ -126,16 +153,12 @@ body {
   letter-spacing: 0.5px;
 }
 
-.table tbody tr {
-  transition: background-color 0.2s;
-}
-
 .table-hover tbody tr:hover {
   background-color: rgba(0, 123, 255, 0.05);
   cursor: pointer;
 }
 
-/* Badges personalizados */
+/* ==================== BADGES ==================== */
 .badge {
   padding: 0.4em 0.8em;
   font-weight: 600;
@@ -143,26 +166,7 @@ body {
   border-radius: 20px;
 }
 
-/* Botões */
-.btn {
-  border-radius: 8px;
-  font-weight: 500;
-  padding: 0.5rem 1.25rem;
-  transition: all 0.2s;
-  border: none;
-}
-
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.btn-lg {
-  padding: 0.75rem 1.5rem;
-  font-size: 1rem;
-}
-
-/* Inputs e Selects */
+/* ==================== FORMULÁRIOS ==================== */
 .form-control,
 .form-select {
   border-radius: 8px;
@@ -177,58 +181,46 @@ body {
   box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.15);
 }
 
-/* Labels */
 .form-label {
   margin-bottom: 0.5rem;
   color: #495057;
   font-size: 0.95rem;
 }
 
-/* Spinners de loading */
+/* ==================== NAVBAR & FOOTER ==================== */
+.navbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+.nav-link {
+  font-weight: 500;
+  transition: color 0.2s;
+}
+footer {
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* ==================== PAGINAÇÃO ==================== */
+.btn-group .btn-outline-secondary {
+  border-radius: 0;
+}
+.btn-group .btn-outline-secondary:first-child {
+  border-radius: 8px 0 0 8px;
+}
+.btn-group .btn-outline-secondary:last-child {
+  border-radius: 0 8px 8px 0;
+}
+
+/* ==================== SPINNER ==================== */
 .spinner-border {
   width: 3rem;
   height: 3rem;
 }
 
-/* Estados vazios */
-.text-center i.display-1 {
-  opacity: 0.3;
-}
-
-/* Paginação */
-.btn-group .btn-outline-secondary {
-  border-radius: 0;
-}
-
-.btn-group .btn-outline-secondary:first-child {
-  border-radius: 8px 0 0 8px;
-}
-
-.btn-group .btn-outline-secondary:last-child {
-  border-radius: 0 8px 8px 0;
-}
-
-/* Navbar */
-.navbar {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-brand {
-  font-weight: 600;
-  font-size: 1.25rem;
-}
-
-.nav-link {
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-/* Footer */
-footer {
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
-}
-
-/* Animações suaves */
+/* ==================== ANIMAÇÕES ==================== */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -240,23 +232,16 @@ footer {
   }
 }
 
-.card,
-.table-responsive {
-  animation: fadeIn 0.3s ease-out;
-}
-
-/* Responsividade */
+/* ==================== RESPONSIVIDADE ==================== */
 @media (max-width: 768px) {
   .card-header h5 {
     font-size: 1rem;
   }
-
   .btn-lg {
     padding: 0.625rem 1.25rem;
     font-size: 0.95rem;
   }
-
   .table {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 }
